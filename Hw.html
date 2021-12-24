@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="./HW.css">
+	<title>Guessing Game</title>
+</head>
+<body>
+	<div id="container">
+		<div id="left"><h1>Guessing Game</h1></div>
+		<div id="guess-div">
+			<div id="left"><h3>Your Guess(1~100)</h3></div>
+			<div id="left"><input type="text" name="" id="guess"></div>
+		</div>
+		<div id="play-btn" onclick="play()">Play</div>
+		<table id="result-table">
+			<thead>
+				<tr>
+					<td><b>Result</b></td>
+				</tr>
+			</thead>
+			<tbody>
+				
+			</tbody>
+		</table>
+			
+		
+	</div>
+
+
+</body>
+<script type="text/javascript">
+	const guessInput = document.getElementById("guess");
+	const playBtn = document.getElementById("play-btn");
+	const resultTableBody = document.querySelector("#result-table > tbody");
+	var rand = 0;
+	var guessCount = 0;
+	var currentMax = 100;
+	var currentMin = 1;
+
+	window.addEventListener("load",()=>{rand = Math.floor(Math.random()*100 + 1);
+	});
+
+	function play(){
+		let inputNummber = parseInt(guessInput.value);
+		if(inputNummber == rand){
+			alert("Boom!");
+		}else{
+			guessCount++;
+			updateTable(inputNummber);
+		}
+
+	}
+	function updateTable(num){
+		if(num < rand){
+			currentMin = num;
+		}else{
+			currentMax = num;
+		}
+
+		let range = currentMin +"~"+currentMax;
+		let newTr = document.createElement("tr");
+		let newTd = document.createElement("td");
+		let newText = document.createTextNode(range);
+
+		if(guessCount%2 != 0){
+			newTr.classList.add("oddtr");
+		}
+
+		newTd.appendChild(newText);
+		newTr.appendChild(newTd);
+		resultTableBody.appendChild(newTr);
+	}
+
+</script>
+</html>
